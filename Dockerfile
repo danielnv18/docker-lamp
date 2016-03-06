@@ -33,7 +33,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 ADD docker/default-nginx.conf /etc/nginx/sites-available/default
 
-RUN /var/www/public_html 
+RUN mkdir /var/www/public_html 
 RUN chown -R www-data:www-data /var/www/public_html
 RUN chmod 755 /var/www
 RUN service nginx restart

@@ -7,4 +7,4 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./src:/usr/share/nginx/html
+      - ./src:/var/www/public_html

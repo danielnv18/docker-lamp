@@ -31,12 +31,12 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-ADD docker/default-nginx.conf /etc/nginx/sites-available/default
+ADD docker/default-nginx.conf /etc/nginx/conf.d/default.conf
 
-RUN mkdir /var/www/public_html 
-RUN chown -R www-data:www-data /var/www/public_html
-RUN chmod 755 /var/www
-RUN service nginx restart
+# RUN mkdir /var/www/public_html
+# RUN chown -R www-data:www-data /var/www/public_html
+# RUN chmod 755 /var/www
+# RUN service nginx restart
 
 EXPOSE 80 443
 

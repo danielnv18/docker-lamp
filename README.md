@@ -1,6 +1,6 @@
-# Docker LEMP
+# Docker LAMP
 
-This is in development and is not fully funcional 
+This is in development and is not fully functional
 
 To Run the project run
 ```

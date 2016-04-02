@@ -1,6 +1,9 @@
 FROM php:5.6-apache
 MAINTAINER Daniel Noyola <danielnv18@gmail.com>
 
+COPY config/php.ini /usr/local/etc/php/
+COPY src/ /var/www/html/
+
 RUN a2enmod rewrite
 
 # install the PHP extensions we need

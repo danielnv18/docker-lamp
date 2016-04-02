@@ -1,14 +1,10 @@
 <?php
-$servername = "db";
-$username = "root";
-$password = "root";
-$db = "test_db";
+require_once __DIR__.'/vendor/autoload.php'; 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
+$app = new Silex\Application();
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-echo "Connected successfully";
+$app->get('/hello/{name}', function($name) use($app) {
+    return 'Hello '.$app->escape($name);
+});
+
+$app->run();

@@ -1,20 +1,39 @@
 version: '2'
 services:
-  web:
-    container_name: LAMP
-    build: .
-    ports:
-      - "80:80"
-    links:
-      - db
-    depends_on:
-      - db
-    volumes:
-      - ./src:/var/www/html
-  db:
-    image: mysql
-    ports:
-     - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test_db
+    db:
+        image: mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: lemp
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+    php:
+        build: ./php
+        expose:
+            - "9000"
+        volumes:
+            - ./src:/var/www
+        links:
+            - db
+    nginx:
+        build: ./nginx
+        ports:
+            - "80:80"
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+    elk:
+        image: willdurand/elk
+        ports:
+            - "81:80"
+        volumes:
+            - ./elk/logstash:/etc/logstash
+            - ./elk/logstash/patterns:/opt/logstash/patterns
+        volumes_from:
+            - php
+            - nginx

@@ -5,6 +5,9 @@ MAINTAINER Daniel Noyola <danielnv18@gmail.com>
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY lemp.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80 443
+RUN echo "upstream php-upstream { server php:9000; }" > /etc/nginx/conf.d/upstream.conf
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx"]
+
+EXPOSE 80
+EXPOSE 443

@@ -1,9 +1,11 @@
-FROM php:7.0-fpm-alpine
+FROM php:7.0-fpm
 
 MAINTAINER Daniel Noyola <danielnv18@gmail.com>
 
 # install the PHP extensions we need
-RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install gd mbstring opcache pdo pdo_mysql pdo_pgsql zip \
 	&& docker-php-ext-install mysqli
 
@@ -23,14 +25,7 @@ RUN { \
 		echo 'opcache.enable_cli=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-
-
-RUN rm -rf /var/cache/apk/* && rm -rf /tmp/*
-
-ADD php.ini /etc/php5/fpm/conf.d/
-ADD php.ini /etc/php5/cli/conf.d/
-
-ADD lemp.pool.conf /etc/php5/fpm/pool.d/
+ADD lemp.pool.conf /etc/php/7.0/fpm/pool.d/
 
 CMD ["php-fpm", "-F"]
 

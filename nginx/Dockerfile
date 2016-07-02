@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:stable
 
 MAINTAINER Daniel Noyola <danielnv18@gmail.com>
 

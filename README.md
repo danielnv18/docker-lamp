@@ -1,4 +1,4 @@
-# Docker LAMP
+# Docker LEMP
 
 This is in development and is not fully functional
 
